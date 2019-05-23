@@ -447,8 +447,8 @@ def CheckForUpdates():
         return
 
 if __name__ == '__main__':
-    CheckForUpdates()
-    wait = input('Press ENTER to run the Lab Check...')
+    #CheckForUpdates()
+    #wait = input('Press ENTER to run the Lab Check...')
     unittest.main()
 
 
