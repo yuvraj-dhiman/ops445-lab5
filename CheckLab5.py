@@ -1,4 +1,22 @@
 #!/usr/bin/env python3
+'''
+Name: CheckLab5.py
+Updated: October 6, 2019 by Raymond Chan
+Reasons: (1) updated for python version 3.6.8
+         (2) add report header with user and system information
+         (3) add checking for author id for lab scripts
+         
+Usage:
+Check all section for the Lab 5
+./CheckLab5.py -f -v
+Check a specific lab section
+./CheckLab5.py -f -v lab5x -- x: a, b, c
+
+Description:
+This script is used to give students more feedback and hints while working
+on Lab 5. Python scripts for Lab 5 and this script should be in the same
+directory. All the Python scripts must use the correct naming scheme.
+'''
 
 import subprocess
 import unittest
@@ -6,6 +24,8 @@ import sys
 import os
 import hashlib
 import urllib.request
+import socket
+import time
 
 class lab5a(unittest.TestCase):
     """All test cases for lab5a - sets"""
@@ -32,6 +52,21 @@ class lab5a(unittest.TestCase):
         lab_file.close()
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
+
+    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    def test_a1_author_id(self):
+        """[Lab 5] - [Investigation 1] - [Part 1] - Correct Script ID - match system ID: ./lab5a.py"""
+        lab_file = open('./lab5a.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in the script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab5.py script."
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
     
     def test_a_function_read_file_string(self):
         """[Lab 5] - [Investigation 1] - [Part 1] - Files - function read_file_string fails without 1 argument"""
@@ -129,6 +164,21 @@ class lab5b(unittest.TestCase):
         lab_file.close()
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
+
+    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    def test_a1_author_id(self):
+        """[Lab 5] - [Investigation 1] - [Part 2] - Correct Script ID - match system ID: ./lab5b.py"""
+        lab_file = open('./lab5b.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in the script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab5.py script."
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
     
     def test_a_function_read_file_string(self):
         """[Lab 5] - [Investigation 1] - [Part 2] - Files - function read_file_string fails without 1 argument"""
@@ -330,6 +380,21 @@ class lab5c(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
     
+    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    def test_a1_author_id(self):
+        """[Lab 5] - [Investigation 2] - [Part 1] - Correct Script ID - match system ID: ./lab5c.py"""
+        lab_file = open('./lab5c.py')
+        all_lines = lab_file.readlines()
+        lab_file.close()
+        author_id = "not set"
+        error_output = "Author ID not set in the script"
+        for each_line in all_lines:
+            if 'Author ID:' in each_line:
+                author_id = each_line.strip().split(":")[1].replace(' ','')
+                error_output = "Author ID does not match user name running the CheckLab5.py script."
+        user_id = os.getlogin()
+        self.assertEqual(author_id, user_id, msg=error_output)
+
     def test_a_function_add(self):
         """[Lab 5] - [Investigation 2] - [Part 1] - Files - function add fails without 2 argument"""
         with self.assertRaises(Exception) as context:
@@ -429,13 +494,13 @@ def CheckForUpdates():
         lab_name = 'CheckLab5.py'
         lab_num = 'lab5'
         print('Checking for updates...')
-        if ChecksumLatest(url='https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
+        if ChecksumLatest(url='https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name) != ChecksumLocal(filename='./' + lab_name):
             print()
             print(' There is a update available for ' + lab_name + ' please consider updating:')
             print(' cd ~/ops435/' + lab_num + '/')
             print(' pwd  #   <-- i.e. confirm that you are in the correct directory')
             print(' rm ' + lab_name)
-            print(' ls ' + lab_name + ' || wget https://raw.githubusercontent.com/Seneca-CDOT/ops435/master/LabCheckScripts/' + lab_name)
+            print(' ls ' + lab_name + ' || wget https://ict.senecacollege.ca/~raymond.chan/ops435/labs/LabCheckScripts/' + lab_name)
             print()
             return
         print('Running latest version...')
@@ -445,10 +510,26 @@ def CheckForUpdates():
         print('No connection made...')
         print('Skipping updates...')
         return
+def displayReportHeader():
+    report_heading = 'OPS435 Lab Report - System Information for running '+sys.argv[0]
+    print(report_heading)
+    print(len(report_heading) * '=')
+    print('    User login name:', os.getlogin())
+    print('    Linux system name:', socket.gethostname())
+    print('    Linux system version:', os.popen('cat /etc/redhat-release').read().strip())
+    print('    Python executable:',sys.executable)
+    print('    Python version: ',sys.version_info.major,sys.version_info.minor,sys.version_info.micro,sep='')
+    print('    OS Platform:',sys.platform)
+    print('    Working Directory:',os.getcwd())
+    print('    Start at:',time.asctime())
+    print(len(report_heading) * '=')
+    return
 
 if __name__ == '__main__':
     #CheckForUpdates()
     #wait = input('Press ENTER to run the Lab Check...')
+    if len(sys.argv) == 3:
+       report_header = displayReportHeader()
     unittest.main()
 
 

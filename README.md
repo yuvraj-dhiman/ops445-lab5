@@ -17,14 +17,14 @@ cd ~/ops435/lab5/
 pwd #confirm that you are in the right directory
 python3 ./CheckLab5.py -f -v
 ```
-2. Paste the checking script output into *laboutput.txt*:
+2. Redirect the checking script output into *laboutput.txt*:
 ```bash
-vi ~/ops435/lab5/laboutput.txt
+python3 ./CheckLab5.py -v &> ~/ops435/lab5/laboutput.txt
 ```
 
 3. Commit and push (upload) your lab work:
 ```bash
-git add lab*
+git add *
 git commit -m "Individual message or note."
 git push
 ```
