@@ -3,7 +3,7 @@ This will download Lab 5 locally, allowing you to work on your scripts and uploa
 
 1. Clone your lab repository into your ~/ops435/lab5 directory using SSH:
 ```bash
-git clone git@github.com:ops435/lab5-yourgithubusername.git ~/ops435/lab5/
+git clone git@github.com:ops435/lab-5-yourgithubusername.git ~/ops435/lab5/
 ```
 2. Copy your backed-up work into your new GitHub-linked directory:
 ```bash
@@ -24,7 +24,7 @@ python3 ./CheckLab5.py -v &> ~/ops435/lab5/laboutput.txt
 
 3. Commit and push (upload) your lab work:
 ```bash
-git add *
+git add lab*
 git commit -m "Individual message or note."
 git push
 ```
