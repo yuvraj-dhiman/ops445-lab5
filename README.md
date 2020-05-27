@@ -25,6 +25,7 @@ python3 ./CheckLab5.py -v &> ~/ops435/lab5/laboutput.txt
 3. Commit and push (upload) your lab work:
 ```bash
 git add lab*
+git add seneca*
 git commit -m "Individual message or note."
 git push
 ```
