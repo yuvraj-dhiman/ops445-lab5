@@ -53,7 +53,7 @@ class lab5a(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
 
-    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    @unittest.skip( "skipping userid check.")
     def test_a1_author_id(self):
         """[Lab 5] - [Investigation 1] - [Part 1] - Correct Script ID - match system ID: ./lab5a.py"""
         lab_file = open('./lab5a.py')
@@ -165,7 +165,7 @@ class lab5b(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
 
-    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    @unittest.skip( "skipping userid check.")
     def test_a1_author_id(self):
         """[Lab 5] - [Investigation 1] - [Part 2] - Correct Script ID - match system ID: ./lab5b.py"""
         lab_file = open('./lab5b.py')
@@ -380,7 +380,7 @@ class lab5c(unittest.TestCase):
         error_output = 'your program does not have a shebang line(HINT: what should the first line contain)'
         self.assertEqual(first_line.strip(), '#!/usr/bin/env python3', msg=error_output)
     
-    @unittest.skipIf(os.getlogin() == 'travis', "skipping userid check.")
+    @unittest.skip( "skipping userid check.")
     def test_a1_author_id(self):
         """[Lab 5] - [Investigation 2] - [Part 1] - Correct Script ID - match system ID: ./lab5c.py"""
         lab_file = open('./lab5c.py')
