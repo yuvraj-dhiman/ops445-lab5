@@ -3,7 +3,7 @@ This will download Lab 5 locally, allowing you to work on your scripts and uploa
 
 1. Clone your lab repository into your ~/ops445/lab5 directory using SSH:
 ```bash
-git clone git@github.com:ops435/lab-5-yourgithubusername.git ~/ops445/lab5/
+git clone <ssh link> ~/ops445/lab5/
 ```
 2. Copy your backed-up work into your new GitHub-linked directory:
 ```bash
