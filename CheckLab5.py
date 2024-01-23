@@ -38,7 +38,7 @@ class lab5a(unittest.TestCase):
     def test_a(self):
         """[Lab 5] - [Investigation 1] - [Part 1] - Files - Test for errors running: ./lab5a.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab5a.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab5a.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -135,7 +135,7 @@ class lab5b(unittest.TestCase):
     def test_a(self):
         """[Lab 5] - [Investigation 1] - [Part 2] - Files - Test for errors running: ./lab5b.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab5b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab5b.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -335,7 +335,7 @@ class lab5c(unittest.TestCase):
     def test_a(self):
         """[Lab 5] - [Investigation 2] - [Part 1] - Files - Test for errors running: ./lab5c.py"""
         # Run students program
-        p = subprocess.Popen(['/usr/bin/python3', './lab5c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
+        p = subprocess.Popen([sys.executable, './lab5c.py'], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, err = p.communicate()
         # Fail test if process returns a no zero exit status
         return_code = p.wait()
@@ -465,13 +465,14 @@ def CheckForUpdates():
         print('No connection made...')
         print('Skipping updates...')
         return
+
 def displayReportHeader():
-    report_heading = 'OPS435 Lab Report - System Information for running '+sys.argv[0]
+    report_heading = 'OPS445 Lab Report - System Information for running '+sys.argv[0]
     print(report_heading)
     print(len(report_heading) * '=')
-    print('    User login name:', os.getlogin())
+    import getpass
+    print('    User login name:', getpass.getuser())
     print('    Linux system name:', socket.gethostname())
-    print('    Linux system version:', os.popen('cat /etc/redhat-release').read().strip())
     print('    Python executable:',sys.executable)
     print('    Python version: ',sys.version_info.major,sys.version_info.minor,sys.version_info.micro,sep='')
     print('    OS Platform:',sys.platform)
